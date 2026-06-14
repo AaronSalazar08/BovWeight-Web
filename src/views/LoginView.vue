@@ -35,7 +35,7 @@
               <span class="input-group-text bg-white">
                 <i class="bi bi-lock text-secondary"></i>
               </span>
-              <input
+                <input
                 id="contrasena"
                 v-model="form.contrasena"
                 :type="showPassword ? 'text' : 'password'"
