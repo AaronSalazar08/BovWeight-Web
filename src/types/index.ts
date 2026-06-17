@@ -62,6 +62,51 @@ export interface ReviewSolicitudPayload {
   motivo?: string
 }
 
+export interface UsuarioCatalogo {
+  id: number
+  nombre: string
+  correo: string
+}
+
+export interface Finca {
+  id: number
+  nombre: string
+  ubicacion: string
+  area: number
+  numero_finca: string
+  ganadero: UsuarioCatalogo | null
+  veterinario: UsuarioCatalogo | null
+  total_ganado: number
+  creado_en: string
+}
+
+export interface CreateFincaPayload {
+  usuario_id: number | null
+  nombre: string
+  ubicacion: string
+  area: number
+  numero_finca: string
+}
+
+export interface UpdateFincaPayload {
+  usuario_id?: number | null
+  nombre?: string
+  ubicacion?: string
+  area?: number
+  numero_finca?: string
+}
+
+export interface SolicitudVeterinario {
+  id: number
+  finca: { id: number; nombre: string } | null
+  ganadero: { id: number; nombre: string; correo: string } | null
+  veterinario: { id: number; nombre: string; correo: string } | null
+  estado: 'pendiente' | 'aprobado' | 'rechazado'
+  aprobado_en: string | null
+  aprobador: { id: number; nombre: string } | null
+  creado_en: string
+}
+
 export type NotificationType = 'success' | 'danger' | 'warning' | 'info'
 
 export interface Notification {

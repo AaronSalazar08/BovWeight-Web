@@ -30,6 +30,16 @@ const router = createRouter({
           name: 'solicitudes',
           component: () => import('@/views/solicitudes/SolicitudesView.vue'),
         },
+        {
+          path: 'fincas',
+          name: 'fincas',
+          component: () => import('@/views/fincas/FincasView.vue'),
+        },
+        {
+          path: 'solicitudes-veterinario',
+          name: 'solicitudes-veterinario',
+          component: () => import('@/views/solicitudes-vet/SolicitudesVetView.vue'),
+        },
       ],
     },
     {
