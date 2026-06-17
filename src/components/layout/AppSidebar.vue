@@ -30,6 +30,21 @@
           </span>
         </RouterLink>
       </li>
+      <li class="nav-item">
+        <RouterLink :to="{ name: 'fincas' }" class="nav-link d-flex align-items-center gap-2">
+          <i class="bi bi-house fs-5"></i>
+          <span class="sidebar__label">Fincas</span>
+        </RouterLink>
+      </li>
+      <li class="nav-item">
+        <RouterLink :to="{ name: 'solicitudes-veterinario' }" class="nav-link d-flex align-items-center gap-2">
+          <i class="bi bi-heart-pulse fs-5"></i>
+          <span class="sidebar__label">Solic. Veterinario</span>
+          <span v-if="pendingVetCount > 0" class="badge bg-warning text-dark ms-auto">
+            {{ pendingVetCount }}
+          </span>
+        </RouterLink>
+      </li>
     </ul>
 
     <div class="sidebar__footer px-3 py-3 border-top border-secondary">
@@ -50,18 +65,24 @@
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { solicitudesApi } from '@/api/solicitudes'
+import { solicitudesVetApi } from '@/api/solicitudesVet'
 
 defineProps<{ isCollapsed: boolean }>()
 
 const authStore = useAuthStore()
 const pendingCount = ref(0)
+const pendingVetCount = ref(0)
 
 onMounted(async () => {
   try {
-    const response = await solicitudesApi.pendientes()
-    pendingCount.value = response.data.length
+    const [reg, vet] = await Promise.all([
+      solicitudesApi.pendientes(),
+      solicitudesVetApi.pendientes(),
+    ])
+    pendingCount.value = reg.data.length
+    pendingVetCount.value = vet.data.length
   } catch {
-    // silently fail — badge is informational
+    // silently fail — badges son informativos
   }
 })
 </script>

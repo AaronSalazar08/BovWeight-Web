@@ -9,8 +9,11 @@ const props = defineProps<{ estado: string }>()
 
 const map: Record<string, { label: string; variant: string }> = {
   Pendiente: { label: 'Pendiente', variant: 'warning text-dark' },
+  pendiente: { label: 'Pendiente', variant: 'warning text-dark' },
   Aprobado: { label: 'Aprobado', variant: 'success' },
+  aprobado: { label: 'Aprobado', variant: 'success' },
   Rechazado: { label: 'Rechazado', variant: 'danger' },
+  rechazado: { label: 'Rechazado', variant: 'danger' },
   Administrador: { label: 'Administrador', variant: 'primary' },
   Ganadero: { label: 'Ganadero', variant: 'success' },
   Veterinario: { label: 'Veterinario', variant: 'info text-dark' },
