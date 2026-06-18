@@ -219,10 +219,12 @@ import { ref, computed, onMounted } from 'vue'
 import type { SolicitudRegistro } from '@/types'
 import { solicitudesApi } from '@/api/solicitudes'
 import { useNotificationsStore } from '@/stores/notifications'
+import { useSolicitudesBadgeStore } from '@/stores/solicitudesBadge'
 import BaseModal from '@/components/ui/BaseModal.vue'
 import StatusBadge from '@/components/ui/StatusBadge.vue'
 
 const notifications = useNotificationsStore()
+const badgeStore = useSolicitudesBadgeStore()
 
 const solicitudes = ref<SolicitudRegistro[]>([])
 const isLoading = ref(true)
@@ -300,6 +302,7 @@ async function handleApprove() {
     showApproveModal.value = false
     activeTab.value = 'Aprobado'
     await loadSolicitudes()
+    await badgeStore.refresh()
   } catch (err: any) {
     const msg = err?.response?.data?.message
     if (err?.response?.status === 422 && msg) {
@@ -327,6 +330,7 @@ async function handleReject() {
     showRejectModal.value = false
     activeTab.value = 'Rechazado'
     await loadSolicitudes()
+    await badgeStore.refresh()
   } catch (err: any) {
     const msg = err?.response?.data?.message
     if (err?.response?.status === 422 && msg) {

@@ -124,7 +124,7 @@
           />
           <div v-if="formErrors.correo" class="invalid-feedback">{{ formErrors.correo }}</div>
         </div>
-        <div class="mb-3">
+        <div v-if="!editingUser" class="mb-3">
           <label class="form-label fw-medium">Tipo de usuario</label>
           <select v-model="form.tipo_nombre" class="form-select" required>
             <option value="" disabled>Seleccione un tipo</option>
@@ -132,6 +132,11 @@
             <option value="Ganadero">Ganadero</option>
             <option value="Veterinario">Veterinario</option>
           </select>
+        </div>
+        <div v-else class="mb-3">
+          <label class="form-label fw-medium">Tipo de usuario</label>
+          <input type="text" class="form-control" :value="form.tipo_nombre" disabled />
+          <div class="form-text">El tipo de usuario no se puede cambiar una vez creada la cuenta.</div>
         </div>
         <div v-if="!editingUser" class="mb-3">
           <label class="form-label fw-medium">Contraseña temporal</label>
@@ -301,7 +306,6 @@ async function handleSubmit() {
       await usersApi.update(editingUser.value.id, {
         nombre: form.nombre,
         correo: form.correo,
-        tipo_nombre: form.tipo_nombre,
       })
       notifications.success('Usuario actualizado correctamente.')
     } else {

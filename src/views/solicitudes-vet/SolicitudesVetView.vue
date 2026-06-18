@@ -150,10 +150,12 @@ import { ref, computed, onMounted } from 'vue'
 import type { SolicitudVeterinario } from '@/types'
 import { solicitudesVetApi } from '@/api/solicitudesVet'
 import { useNotificationsStore } from '@/stores/notifications'
+import { useSolicitudesBadgeStore } from '@/stores/solicitudesBadge'
 import BaseModal from '@/components/ui/BaseModal.vue'
 import StatusBadge from '@/components/ui/StatusBadge.vue'
 
 const notifications = useNotificationsStore()
+const badgeStore = useSolicitudesBadgeStore()
 
 const solicitudes = ref<SolicitudVeterinario[]>([])
 const isLoading = ref(true)
@@ -208,6 +210,7 @@ async function handleRevisar(s: SolicitudVeterinario, decision: 'aprobar' | 'rec
     notifications.success(msg)
     showDetailModal.value = false
     await loadSolicitudes()
+    await badgeStore.refresh()
   } catch (err: any) {
     notifications.error(err?.response?.data?.message ?? 'Error al procesar la solicitud.')
   } finally {

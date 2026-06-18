@@ -62,29 +62,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
-import { solicitudesApi } from '@/api/solicitudes'
-import { solicitudesVetApi } from '@/api/solicitudesVet'
+import { useSolicitudesBadgeStore } from '@/stores/solicitudesBadge'
 
 defineProps<{ isCollapsed: boolean }>()
 
 const authStore = useAuthStore()
-const pendingCount = ref(0)
-const pendingVetCount = ref(0)
+const badgeStore = useSolicitudesBadgeStore()
+const { pendingCount, pendingVetCount } = storeToRefs(badgeStore)
 
-onMounted(async () => {
-  try {
-    const [reg, vet] = await Promise.all([
-      solicitudesApi.pendientes(),
-      solicitudesVetApi.pendientes(),
-    ])
-    pendingCount.value = reg.data.length
-    pendingVetCount.value = vet.data.length
-  } catch {
-    // silently fail — badges son informativos
-  }
-})
+onMounted(() => badgeStore.refresh())
 </script>
 
 <style scoped>
