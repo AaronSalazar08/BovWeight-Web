@@ -27,6 +27,12 @@
               {{ authStore.user?.correo }}
             </span>
           </li>
+          <li>
+            <button class="dropdown-item d-flex align-items-center gap-2" @click="showChangePasswordModal = true">
+              <i class="bi bi-key"></i>
+              Cambiar contraseña
+            </button>
+          </li>
           <li><hr class="dropdown-divider" /></li>
           <li>
             <button class="dropdown-item text-danger d-flex align-items-center gap-2" @click="handleLogout">
@@ -37,14 +43,20 @@
         </ul>
       </div>
     </div>
+
+    <ChangePasswordModal
+      v-model="showChangePasswordModal"
+      :correo="authStore.user?.correo ?? ''"
+    />
   </header>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useNotificationsStore } from '@/stores/notifications'
+import ChangePasswordModal from './ChangePasswordModal.vue'
 
 const emit = defineEmits<{ 'toggle-sidebar': [] }>()
 
@@ -52,6 +64,7 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 const notifications = useNotificationsStore()
+const showChangePasswordModal = ref(false)
 
 const pageTitles: Record<string, string> = {
   dashboard: 'Dashboard',
