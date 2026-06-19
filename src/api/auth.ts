@@ -14,4 +14,9 @@ export const authApi = {
 
   resetPassword: (payload: { token: string; correo: string; contrasena: string; contrasena_confirmation: string }) =>
     client.post('/auth/reset-password', payload),
+
+  sendOtp: (correo: string) => client.post<{ message: string }>('/auth/otp/send', { correo }),
+
+  verifyOtp: (correo: string, codigo: string) =>
+    client.post<{ token: string }>('/auth/otp/verify', { correo, codigo }),
 }
