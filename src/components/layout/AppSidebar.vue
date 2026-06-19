@@ -37,6 +37,12 @@
         </RouterLink>
       </li>
       <li class="nav-item">
+        <RouterLink :to="{ name: 'ganado' }" class="nav-link d-flex align-items-center gap-2">
+          <i class="bi bi-clipboard-data fs-5"></i>
+          <span class="sidebar__label">Ganado</span>
+        </RouterLink>
+      </li>
+      <li class="nav-item">
         <RouterLink :to="{ name: 'solicitudes-veterinario' }" class="nav-link d-flex align-items-center gap-2">
           <i class="bi bi-heart-pulse fs-5"></i>
           <span class="sidebar__label">Solic. Veterinario</span>

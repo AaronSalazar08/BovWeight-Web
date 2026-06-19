@@ -107,6 +107,37 @@ export interface SolicitudVeterinario {
   creado_en: string
 }
 
+export interface Catalogo {
+  id: number
+  nombre: string
+}
+
+export interface GanadoFinca {
+  id: number
+  nombre: string
+  ubicacion: string
+  area: number
+  numero_finca: string
+  usuario_id: number | null
+  veterinario_id: number | null
+}
+
+export interface Ganado {
+  id: number
+  finca_id: number
+  estado_salud_id: number
+  estado_comercial_id: number
+  arete: string
+  nombre: string | null
+  sexo: 'Macho' | 'Hembra' | null
+  raza: string
+  imagen: string | null
+  peso_kg: number | null
+  estado_salud?: Catalogo
+  estado_comercial?: Catalogo
+  finca?: GanadoFinca
+}
+
 export type NotificationType = 'success' | 'danger' | 'warning' | 'info'
 
 export interface Notification {

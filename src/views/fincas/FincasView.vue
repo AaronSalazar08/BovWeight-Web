@@ -49,7 +49,13 @@
                 <span v-else class="text-muted fst-italic small">Sin asignar</span>
               </td>
               <td>
-                <span class="badge bg-secondary bg-opacity-10 text-secondary">{{ finca.total_ganado }}</span>
+                <RouterLink
+                  :to="{ name: 'ganado', query: { finca_id: finca.id } }"
+                  class="d-flex align-items-center gap-2 text-decoration-none"
+                >
+                  <span class="badge bg-secondary bg-opacity-10 text-secondary">{{ finca.total_ganado }}</span>
+                  <span class="small">Ver ganado</span>
+                </RouterLink>
               </td>
               <td class="text-end pe-4">
                 <div class="d-flex justify-content-end gap-1">
